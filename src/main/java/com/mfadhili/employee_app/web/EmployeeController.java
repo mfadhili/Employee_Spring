@@ -4,6 +4,7 @@ import com.mfadhili.employee_app.data.models.Employee;
 import com.mfadhili.employee_app.data.payloads.request.EmployeeRequest;
 import com.mfadhili.employee_app.data.payloads.response.MessageResponse;
 import com.mfadhili.employee_app.service.EmployeeService;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,16 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This class contains the Employee Controller mappings ans methods
+ * This class contains the Employee Controller mappings and methods
  * */
 
 @RestController /** Marks the class as an HTTP request handler and allows spring to recognise it as a restful service*/
 @RequestMapping("/employee") /** Sets the base path to the resource endpoints as "/employee" */
+@ApiResponses(value = {
+        @io.swagger.annotations.ApiResponse(code = 400, message = "This is a bad request. please follow API documentation for proper request format"),
+        @io.swagger.annotations.ApiResponse(code = 401, message = "Due to security constraints thine request cannot be authorised"),
+        @io.swagger.annotations.ApiResponse(code = 501, message = "Man down, please bear with us as we work to restore the server")
+})
 public class EmployeeController {
     @Autowired /** Autowired EmployeeService into EmployeeController class. It allows its service methods to be available. It is a dependency injection*/
     EmployeeService employeeService;
